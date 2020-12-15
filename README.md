@@ -6,11 +6,26 @@ In the repository, the following UDC methods were implemented with pytorch
 
 Reproduced Accuracy compared with original papers
 
-| Method | MNIST |
-| ---- | :----: | :----: | 
-| | reproduced | paper | 
-| DEC | 88.27 | 84.08 |
-| DCEC | 87.41 | 88.97 |
+<table>
+   <tr>
+      <td>Method</td>
+      <td>       MNIST</td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>           reproduced paper</td>
+   </tr>
+   <tr>
+      <td>DEC</td>
+      <td>88.27</td>
+      <td>84.08</td>
+   </tr>
+   <tr>
+      <td>DCEC</td>
+      <td>87.41</td>
+      <td>88.97</td>
+   </tr>
+</table>
 
 Using Details
 + **DEC**
