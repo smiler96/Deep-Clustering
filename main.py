@@ -20,6 +20,8 @@ def pretrain(**kwargs):
     epochs = kwargs['epochs']
     pth_file = kwargs['pth']
     png_file = kwargs['png']
+    denoising = kwargs['denoising']
+
     optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3, weight_decay=1e-5)
     criterion = nn.MSELoss()
 
@@ -29,8 +31,11 @@ def pretrain(**kwargs):
         train_loss = 0.0
         for x, _ in dataloader:
             _, c, h, w = x.shape
-            x = x.view((x.shape[0], -1))
-            noisy_x = add_noise(x)
+            x = x.view((x.shape[0], -1))            
+            if denoising:
+                noisy_x = add_noise(x)
+            else:
+                noisy_x = x
             noisy_x = noisy_x.cuda()
             x = x.cuda()
             # ===================forward=====================
@@ -66,9 +71,10 @@ def train(**kwargs):
     epochs = kwargs['epochs']
     pth_file = kwargs['pth']
     root = kwargs['root']
+    alpha = kwargs['alpha']
 
-    optimizer = torch.optim.SGD(params=model.parameters(), lr=1e-2, momentum=0.9, weight_decay=1e-5)
-    # optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3, weight_decay=1e-5)
+    # optimizer = torch.optim.SGD(params=model.parameters(), lr=1e-2, momentum=0.9, weight_decay=1e-5)
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=1e-3, weight_decay=1e-5)
     mse_criterion = nn.MSELoss()
     kl_criterion = nn.KLDivLoss(reduction='mean')
 
@@ -130,7 +136,7 @@ def train(**kwargs):
                 cv2.imwrite(f"{root}/clustering.png", final)
             # ===================backward====================
             optimizer.zero_grad()
-            total_loss = rec_loss + kl_loss
+            total_loss = rec_loss + alpha * kl_loss
             total_loss.backward()
             optimizer.step()
 
@@ -151,10 +157,12 @@ def parse_args():
     parser.add_argument("--model", type=str, default='DEC')
     parser.add_argument("--dataset", type=str, default='MNIST')
     parser.add_argument("--pretrain", action="store_true")
+    parser.add_argument("--denoising", action="store_true")
 
     parser.add_argument("--batch_size", type=int, default=1024)
     parser.add_argument("--lr", type=float, default=0.1)
     parser.add_argument("--epochs", type=int, default=300)
+    parser.add_argument("--alpha", type=float, default=0.1)
 
     parser.add_argument("--n_clusters", type=int, default=10)
     parser.add_argument("--gpu_id", type=str, default="0")
@@ -164,11 +172,12 @@ def parse_args():
 
 def main():
     args = parse_args()
-    args.save_root = os.path.join(args.save_root, f"{args.model}_{args.dataset}")
+    name = f"{args.model}_{args.dataset}_" + ("DS" if args.denoising else "NotDS")
+    args.save_root = os.path.join(args.save_root, name)
     os.makedirs(args.save_root, exist_ok=True)
     pretrain_pth = os.path.join(args.save_root, "pretrain.pth")
     model_pth = os.path.join(args.save_root, "model.pth")
-    if args.dataset == "MNIST":
+    if args.dataset == "MNIST" or args.dataset == "FashionMNIST":
         args.input_dim = 1*28*28
         args.n_clusters = 10
         args.latent_dim = 10
@@ -188,12 +197,13 @@ def main():
     # args.pretrain = True
     if args.pretrain:
         pretrain(model=model, dataloader=dataloader, epochs=args.epochs, pth=pretrain_pth,
-                 png=os.path.join(args.save_root, "pic.png"))
+                 png=os.path.join(args.save_root, "pic.png"), denoising=args.denoising)
     else:
         ckpt = torch.load(pretrain_pth)
         model.load_state_dict(ckpt)
 
-        train(model=model, dataloader=dataloader, epochs=args.epochs, pth=model_pth, root=args.save_root)
+        train(model=model, dataloader=dataloader, epochs=args.epochs, pth=model_pth, root=args.save_root,
+              alpha=args.alpha)
 
 if __name__ == "__main__":
     # sys.path.append('.')
