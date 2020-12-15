@@ -5,11 +5,12 @@ In the repository, the following UDC methods were implemented with pytorch
 + **DCEC**: [Deep Clustering with Convolutional Autoencoders](https://xifengguo.github.io/papers/ICONIP17-DCEC.pdf)
 
 Reproduced Accuracy compared with original papers
+
 | Method | MNIST |
 | ---- | :----: | :----: | 
 | | reproduced | paper | 
-| DEC | | |
-| DCEC | | |
+| DEC | 88.27 | 84.08 |
+| DCEC | 87.41 | 88.97 |
 
 Using Details
 + **DEC**
