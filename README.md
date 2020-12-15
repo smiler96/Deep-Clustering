@@ -24,3 +24,7 @@ python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_s
 python main_conv.py --model DCEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 200 --pretrain --denoising
 python main_conv.py --model DCEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500
 ```
+
+Reference
++ DCE-Pytorch: [https://github.com/Deepayan137/DeepClustering](https://github.com/Deepayan137/DeepClustering)
++ DCEC-Keras: [https://github.com/XifengGuo/DCEC](https://github.com/XifengGuo/DCEC)
