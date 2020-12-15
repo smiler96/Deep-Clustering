@@ -6,6 +6,7 @@ In the repository, the following UDC methods were implemented with pytorch
 
 Reproduced Accuracy compared with original papers
 | Method | MNIST |
+| ---- | :----: | :----: | 
 | | reproduced | paper | 
 | DEC | | |
 | DCEC | | |
