@@ -1,8 +1,8 @@
 ## Unsupervised Deep Clustering
 
 In the repository, the following UDC methods were implemented with pytorch
-+ **DEC**: [Unsupervised Deep Embedding for Clustering Analysis](http://arxiv.org/abs/1511.06335)
-+ **DCEC**: [Deep Clustering with Convolutional Autoencoders](https://xifengguo.github.io/papers/ICONIP17-DCEC.pdf)
++ **DEC**: [Unsupervised Deep Embedding for Clustering Analysis - ICML2015](http://arxiv.org/abs/1511.06335)
++ **DCEC**: [Deep Clustering with Convolutional Autoencoders - ICONIP2017](https://xifengguo.github.io/papers/ICONIP17-DCEC.pdf)
 
 ### Reproduced Accuracy compared with original papers
 
