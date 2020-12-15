@@ -16,13 +16,13 @@ In the repository, the following UDC methods were implemented with pytorch
 + **DEC**
 ```python
 python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 200 --pretrain --denoising
-python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500
+python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500 --denoising
 ```
 
 + **DCEC**
 ```python
 python main_conv.py --model DCEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 200 --pretrain --denoising
-python main_conv.py --model DCEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500
+python main_conv.py --model DCEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500 --denoising
 ```
 
 ### Reference
