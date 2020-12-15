@@ -18,7 +18,7 @@ In the repository, the following UDC methods were implemented with pytorch
 python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 200 --pretrain --denoising
 python main.py --model DEC --dataset MNIST --n_clusters 10 --alpha 0.1 --batch_size 1024 --epochs 500 --denoising
 ```
-The AE was pretrained firstly and then finetuned with clustering together, $alpha$ is the KL-divergence loss weight.
+The AE was pretrained firstly and then finetuned with clustering together, *alpha* is the KL-divergence loss weight.
 
 + **DCEC**
 ```python
